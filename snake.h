@@ -5,7 +5,11 @@
 
 #include <SDL.h>
 #include <string>
+#include <vector>
+
 #include "displayManager.h"
+
+struct Position;
 
 class Snake {
   private:
@@ -23,16 +27,19 @@ class Snake {
     float speed;
 
     int tailSize;
-    //std::vector<Sprite> tail;
+    std::vector<Position> tail;
 
     bool up;
     bool down;
     bool left;
     bool right;
+
+    unsigned int waitToTicks;
+    unsigned int sumOfTicks;
     //drawn object
     Snake();
     void updatePosition(float);
-    void updateTail();
+    void updateTail(const float, const float);
 
   public:
     Snake(const std::string&);
@@ -45,5 +52,9 @@ class Snake {
 
 };
 
+struct Position{
+  float X;
+  float Y;
+};
 
 #endif

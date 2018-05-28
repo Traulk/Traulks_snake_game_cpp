@@ -20,6 +20,7 @@ class Manager {
 
     unsigned int ticks;
     unsigned int sumOfTicks;
+    int cap;
 
     void drawBackground();
     void draw();

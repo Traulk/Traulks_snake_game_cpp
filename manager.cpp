@@ -11,7 +11,8 @@ Manager::Manager():
   backBlue(255),
   player("images/blue_square.png"),
   ticks(0),
-  sumOfTicks(0)
+  sumOfTicks(0),
+  cap(5)
 {
   if( SDL_Init(SDL_INIT_VIDEO) != 0){
     throw( std::string("Unable to init SDL: ") + SDL_GetError());
@@ -37,7 +38,11 @@ void Manager::draw(){
   SDL_Flip(screen);
 }
 
-void Manager::update(){  
+void Manager::update(){
+  /*if((SDL_GetTicks() - sumOfTicks) < 1000 / static_cast<float>(cap)){
+    SDL_Delay( ( 1000 / static_cast<float>(cap) ) - (SDL_GetTicks() - sumOfTicks) );
+  }*/
+
   ticks = SDL_GetTicks() - sumOfTicks;
   sumOfTicks += ticks;
   //update

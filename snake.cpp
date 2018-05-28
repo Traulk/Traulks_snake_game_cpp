@@ -1,3 +1,4 @@
+#include <iostream>
 
 #include "snake.h"
 
@@ -12,21 +13,35 @@ Snake::Snake(const std::string& fileName) :
   image(DisplayManager::getInstance().loadAndSet(fileName)),
   width( 32 ),
   height( 32 ),
-  posX(0.0),
-  posY(0.0),
-  speed(width/2),
+  posX(32.0),
+  posY(129.0),
+  speed(width),
   tailSize(3),
+  tail(),
   up(false),
   down(false),
   left(false),
-  right(false)
+  right(false),
+  waitToTicks(100),
+  sumOfTicks(0)
 {
- //stuff 
+  //create starting tail
+  for(int i = 1; i <= tailSize; i++){
+    //float newX = posX - (width * i);
+    float newY = posY - (height * i);
+    Position temposition = {posX, newY};
+    tail.push_back(temposition);
+ } 
 }
 
 void Snake::update(Uint32 ticks){
-  float incr = speed * static_cast<float>(ticks) * 0.01;
-  updatePosition(incr);
+  //float incr = speed * static_cast<float>(ticks);
+  sumOfTicks += ticks;
+  if(sumOfTicks >= waitToTicks){
+    float incr = width;
+    updatePosition(incr);
+    sumOfTicks = 0;
+  }
   //check for player input
   Uint8 *keystate = SDL_GetKeyState(NULL);
 
@@ -57,19 +72,47 @@ void Snake::update(Uint32 ticks){
 }
 
 void Snake::updatePosition(float incr){
+  float oldX = posX;
+  float oldY = posY;
+
   if(up) posY -= incr;
   if(down) posY += incr;
   if(right) posX += incr;
   if(left) posX -= incr; 
-
-  updateTail();
+   
+  if(up || down || right || left){
+    updateTail(oldX, oldY);
+  }
 }
 
-void Snake::updateTail(){
-  
+void Snake::updateTail( const float oldX, const float oldY){
+ //update positions of tail
+ /*
+  * for size of tail
+  * if first tail piece move to heads position
+  * else move to old position of previous*/
+
+  for(int i = tail.size()-1; i >= 0; i--){
+    if(i == 0){
+      tail[i].X = oldX;
+      tail[i].Y = oldY;
+    }else{
+      tail[i].X = tail[i-1].X;
+      tail[i].Y = tail[i-1].Y;
+    }
+  }
+
+  /*for(int i = 0; i < tailSize; i++){
+    if(i == 0){
+      if( tail[i].X + width < posX){
+        tail[i].X = posX - width;
+      }else if( tail[i].X - width < posX){
+        tail[i].X = posX + width;
+  }*/
 }
 
 void Snake::draw(){
+  //drawing head
   Sint16 zero = 0;
   SDL_Rect src = { zero, zero, width, height };
 
@@ -81,4 +124,16 @@ void Snake::draw(){
 
   SDL_Rect dest = { tx, ty, width, height };
   SDL_BlitSurface( image, &src, screen, &dest );
+
+  //drawing tail
+  for(int i = 0; i < tailSize; i++){
+    x = static_cast<Uint32>(tail[i].X);
+    y = static_cast<Uint32>(tail[i].Y);
+
+    tx = x;
+    ty = y;
+    //std::cout << "printing tail" << i << std::endl;
+    SDL_Rect dest2 = { tx, ty, width, height };
+    SDL_BlitSurface( image, &src, screen, &dest2 );
+  }
 }
