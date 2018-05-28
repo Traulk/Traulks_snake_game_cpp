@@ -6,9 +6,12 @@
 Manager::Manager():
   display( DisplayManager::getInstance() ),
   screen( display.getScreen() ),
-  backRed(0),
-  backGreen(0),
-  backBlue(255)
+  backRed(255),
+  backGreen(255),
+  backBlue(255),
+  player("images/blue_square.png"),
+  ticks(0),
+  sumOfTicks(0)
 {
   if( SDL_Init(SDL_INIT_VIDEO) != 0){
     throw( std::string("Unable to init SDL: ") + SDL_GetError());
@@ -29,12 +32,16 @@ void Manager::drawBackground(){
 
 void Manager::draw(){
   drawBackground();
+  player.draw();
   //draw player
   SDL_Flip(screen);
 }
 
-void Manager::update(){
+void Manager::update(){  
+  ticks = SDL_GetTicks() - sumOfTicks;
+  sumOfTicks += ticks;
   //update
+  player.update(ticks);
 }
 
 void Manager::play(){

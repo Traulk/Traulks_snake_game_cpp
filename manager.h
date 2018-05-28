@@ -5,6 +5,7 @@
 
 #include <SDL.h>
 #include "displayManager.h"
+#include "snake.h"
 
 class Manager {
   private:
@@ -15,12 +16,19 @@ class Manager {
     int backGreen;
     int backBlue;
 
+    Snake player;
+
+    unsigned int ticks;
+    unsigned int sumOfTicks;
+
     void drawBackground();
     void draw();
     void update();
   public:
     Manager();
     ~Manager();
+    Manager(const Manager&);
+    Manager& operator=(const Manager&);
     void play();
 };
 

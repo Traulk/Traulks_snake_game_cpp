@@ -4,6 +4,8 @@
 
 #include <SDL.h>
 
+#include <string>
+
 class DisplayManager {
   private:
     DisplayManager();
@@ -18,6 +20,9 @@ class DisplayManager {
     static DisplayManager& getInstance();
     SDL_Surface * getScreen() const {return screen;}
     ~DisplayManager();
+    SDL_Surface* loadAndSet( const std::string& );
+    int getWidth() { return windowWidth; }
+    int getHeight() { return windowHeight; }
 
 };
 
