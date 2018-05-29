@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <limits>
 
 #include "food.h"
 
@@ -25,6 +26,17 @@ void Food::update(const Position snakeHead){
     std::cout << "NOOOOOOOOOOOMMMMMMZZZZ!" << std::endl;
   }
   
+}
+
+float Food::getRandInRange(int min, int max) const {
+  return min + (rand()/(std::numeric_limits<int>::max()+1.0f))*(max-min);
+}
+
+void Food::resetPosition(){
+  posX = getRandInRange(0, worldWidth);
+  posY = getRandInRange(0, worldHeight);
+
+  eaten = false;
 }
 
 bool Food::checkForCollision(const Position sh){

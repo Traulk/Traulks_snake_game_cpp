@@ -51,6 +51,7 @@ class Snake {
     void draw();
 
     Position getPosition();
+    void addLength();
 
 };
 

@@ -52,9 +52,19 @@ void Manager::update(){
   target.update(player.getPosition());
 
   if(target.isEaten()){
-    //reset in new position and add point
-    std::cout << "woot woot the manager found out" << std::endl;
+    //reset in new position and 
+    //add point &
+    //lengthen snake;
+    std::cout << "snake noms on some food" << std::endl;
+    addPoints();
+    target.resetPosition(); // eventually create function for manager to choose coord
   }
+}
+
+void Manager::addPoints(){
+  //increment points & lengthen snake
+  //points++;
+  player.addLength();
 }
 
 void Manager::play(){

@@ -65,10 +65,6 @@ void Snake::update(Uint32 ticks){
   }
 
 
-  
-  //check for time passed and update movement
-  
-
 }
 
 void Snake::updatePosition(float incr){
@@ -114,6 +110,13 @@ void Snake::updateTail( const float oldX, const float oldY){
       }else if( tail[i].X - width < posX){
         tail[i].X = posX + width;
   }*/
+}
+
+void Snake::addLength(){
+  tailSize += 1;
+  Position temp = {-1.0*width, -1.0*height};
+  tail.push_back(temp);
+
 }
 
 void Snake::draw(){

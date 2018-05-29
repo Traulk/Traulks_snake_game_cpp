@@ -29,6 +29,7 @@ class Manager {
     void drawBackground();
     void draw();
     void update();
+    void addPoints();
   public:
     Manager();
     ~Manager();

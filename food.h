@@ -38,6 +38,8 @@ class Food{
     bool checkForCollision(const Position);
 
     bool isEaten() const { return eaten; }
+    void resetPosition(); //eventually add variables so manager can select coord
+    float getRandInRange(int min, int max) const;
 };
 
 #endif
