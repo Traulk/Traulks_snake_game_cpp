@@ -85,6 +85,11 @@ void Snake::updatePosition(float incr){
   }
 }
 
+Position Snake::getPosition(){
+  Position temp = {posX, posY};
+  return temp;
+}
+
 void Snake::updateTail( const float oldX, const float oldY){
  //update positions of tail
  /*
@@ -101,7 +106,7 @@ void Snake::updateTail( const float oldX, const float oldY){
       tail[i].Y = tail[i-1].Y;
     }
   }
-
+  //code to eventually replace to allow for smoother following and fps
   /*for(int i = 0; i < tailSize; i++){
     if(i == 0){
       if( tail[i].X + width < posX){

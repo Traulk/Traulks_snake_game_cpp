@@ -6,6 +6,8 @@
 #include <SDL.h>
 #include "displayManager.h"
 #include "snake.h"
+#include "food.h"
+
 
 class Manager {
   private:
@@ -17,6 +19,8 @@ class Manager {
     int backBlue;
 
     Snake player;
+
+    Food target;
 
     unsigned int ticks;
     unsigned int sumOfTicks;

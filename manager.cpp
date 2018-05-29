@@ -1,5 +1,6 @@
 
 #include <string>
+#include <iostream>
 
 #include "manager.h"
 
@@ -10,6 +11,7 @@ Manager::Manager():
   backGreen(255),
   backBlue(255),
   player("images/blue_square.png"),
+  target("images/blue_square.png"),
   ticks(0),
   sumOfTicks(0),
   cap(5)
@@ -34,7 +36,7 @@ void Manager::drawBackground(){
 void Manager::draw(){
   drawBackground();
   player.draw();
-  //draw player
+  target.draw();
   SDL_Flip(screen);
 }
 
@@ -47,6 +49,12 @@ void Manager::update(){
   sumOfTicks += ticks;
   //update
   player.update(ticks);
+  target.update(player.getPosition());
+
+  if(target.isEaten()){
+    //reset in new position and add point
+    std::cout << "woot woot the manager found out" << std::endl;
+  }
 }
 
 void Manager::play(){

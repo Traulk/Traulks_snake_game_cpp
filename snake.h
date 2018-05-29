@@ -50,11 +50,9 @@ class Snake {
     void update(Uint32);
     void draw();
 
+    Position getPosition();
+
 };
 
-struct Position{
-  float X;
-  float Y;
-};
 
 #endif

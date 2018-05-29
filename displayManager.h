@@ -26,4 +26,9 @@ class DisplayManager {
 
 };
 
+struct Position{
+  float X;
+  float Y;
+};
+
 #endif
